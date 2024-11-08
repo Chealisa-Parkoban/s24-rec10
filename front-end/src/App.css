@@ -1,40 +1,52 @@
 #board {
   display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
-  padding: 10px
+  grid-template-columns: repeat(3, 1fr); 
+  background-color: #53e8fc8d;
+  padding: 5px; 
+  gap: 5px; 
 }
 
 .cell {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  height: 25vmin;
+  font-size: 4vmin; 
+  width: 25vmin; 
+  height: 25vmin; 
   text-align: center;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.playable {
+  background-color: rgba(249, 237, 112, 0.952); 
+  cursor: pointer;
 }
 
 #bottombar {
-  height: 5vh;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
 }
 
 #instructions {
-  height: 5vh;
+  height: 4vh;
   background-color: white;
-  padding: 0px;
-  margin: 0px;
+  padding: 3px; 
   text-align: center;
-  border: 1px solid black;
+  border: 1px solid #000000;
+  margin-bottom: 5px;
+  font-size: 1em;
 }
 
 #bottombar button {
-  width: 50%;
-  /* height: 100%; */
-  margin: 0;
-  padding: 0;
-  position: relative;
-  float: left;
-  font-size: 2vw
+  flex: 1;
+  height: 100%;
+  margin: 0 3px;
+  font-size: 1em; 
 }
 
 html,
@@ -42,6 +54,9 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
 }
-
-.playable { background-color: red;}

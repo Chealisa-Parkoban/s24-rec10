@@ -34,7 +34,11 @@ class App extends React.Component<Props, GameState> {
     /**
      * state has type GameState as specified in the class inheritance.
      */
-    this.state = { cells: [] }
+    this.state = { 
+      currentPlayer: 'X',
+      winner: '',
+      cells: [] 
+    }
   }
 
   /**
@@ -61,9 +65,25 @@ class App extends React.Component<Props, GameState> {
       e.preventDefault();
       const response = await fetch(`/play?x=${x}&y=${y}`)
       const json = await response.json();
-      this.setState({ cells: json['cells'] });
+      this.setState({ 
+        cells: json['cells'],
+        currentPlayer: json['currentPlayer'], // 从服务器响应中获取 currentPlayer
+        winner: json['winner'] // 从服务器响应中获取 winner
+       });
     }
   }
+
+  // undo function
+  undo = async () => {
+    const response = await fetch('/undo');
+    const json = await response.json();
+    this.setState({
+      cells: json['cells'],
+      currentPlayer: json['currentPlayer'],
+      winner: json['winner']
+    });
+  };
+  
 
   createCell(cell: Cell, index: number): React.ReactNode {
     if (cell.playable)
@@ -115,13 +135,19 @@ class App extends React.Component<Props, GameState> {
      */
     return (
       <div>
+        <div id="instructions">
+          {/* display the current player, and if there's a winner, replace currentPlayer with winner */}
+
+          {this.state.winner ? `Winner: ${this.state.winner}` : `Current player: ${this.state.currentPlayer}`}
+        </div>
         <div id="board">
           {this.state.cells.map((cell, i) => this.createCell(cell, i))}
         </div>
+
         <div id="bottombar">
           <button onClick={/* get the function, not call the function */this.newGame}>New Game</button>
           {/* Exercise: implement Undo function */}
-          <button>Undo</button>
+          <button onClick={this.undo}>Undo</button>
         </div>
       </div>
     );
